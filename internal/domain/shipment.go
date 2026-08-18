@@ -69,17 +69,6 @@ func validateShipmentState(state ShipmentState) error {
 	}
 }
 
-func (s Shipment) RelatedSampleState(target ShipmentState, current SampleState) (SampleState, bool) {
-	switch target {
-	case ShipmentDispatched:
-		return current, true
-	case ShipmentArrived:
-		return SampleReceived, true
-	default:
-		return current, false
-	}
-}
-
 func (s ShipmentState) IsTerminal() bool {
 	return s == ShipmentClosed || s == ShipmentCancelled
 }
