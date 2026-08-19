@@ -72,8 +72,11 @@ func validateShipmentState(state ShipmentState) error {
 func (s Shipment) RelatedSampleState(target ShipmentState, current SampleState) (SampleState, bool) {
 	switch target {
 	case ShipmentDispatched:
-		return current, true
+		return SampleInTransit, true
 	case ShipmentArrived:
+		if current == SampleQuarantined {
+			return current, false
+		}
 		return SampleReceived, true
 	default:
 		return current, false
